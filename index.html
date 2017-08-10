@@ -19,28 +19,30 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 </head>
 <body>
-  <div class="container">
+  <div class="container-fluid">
     <header>
       <h1>Really Awesome Music Site</h1>
     </header>
-    <section class="search">
-      <form class="form-inline">
-        <div class="form-group">
-          <label for="search-term-input">Artist</label>
-          <input type="text" class="form-control" id="search-term-input" placeholder="AC/DC">
+    <main>
+      <section class="search">
+        <form class="form-inline">
+          <div class="form-group">
+            <label for="search-term-input">Artist</label>
+            <input type="text" class="form-control" id="search-term-input" placeholder="AC/DC">
 
-          <button type="submit" class="btn btn-default" id="search-button">Search</button>
-        </div>
-      </form>
-    </section>
+            <button type="submit" class="btn btn-default" id="search-button">Search</button>
+          </div>
+        </form>
+      </section>
 
-    <section class="player hidden">
-      <img src="" class="img-responsive album-artwork center-block" alt="album artwork">
-      <audio class="music-player" controls="controls" src=""></audio>
-    </section>
+      <section class="player hidden">
+        <img src="" class="img-responsive album-artwork center-block" alt="album artwork">
+        <audio class="music-player" controls="controls" src=""></audio>
+      </section>
 
-    <section class="results"></section>
-  </div>
+      <section class="results"></section>
+    </div>
+</main>
   <script src="main.js"></script>
 </body>
 </html>
