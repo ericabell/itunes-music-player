@@ -24,17 +24,19 @@ let searchButton = document.querySelector('#search-button');
 let searchResultsDiv = document.querySelector('.results');
 let searchResultsListing = document.querySelector('.results-listing');
 
+// Results Prev/Next button
+let searchResultsPreviousPage = document.querySelector('#pager-previous');
+let searchResultsNextPage = document.querySelector('#pager-next');
+
 // Music player
 let musicPlayerSection = document.querySelector('.player');
 let musicPlayer = document.querySelector('.music-player');
 let albumArtwork = document.querySelector('.album-artwork');
 
+// EVENT LISTENERS FOR BUTTONS ON OUR PAGE
 searchButton.addEventListener('click', (event) => {
   // prevent the default
   event.preventDefault();
-
-  // clear the div of results (so a previous search results disappear)
-  searchResultsListing.innerHTML = '';
 
   // grab the text
   let searchString = searchTermInput.value;
@@ -52,16 +54,40 @@ searchButton.addEventListener('click', (event) => {
   .then( (data) => {
     console.log(data);
     searchResults = data.results;
-    displayResults(data.results, 5);
+    displayResults(data.results, 0, 5);
   })
 });
 
+searchResultsPreviousPage.addEventListener('click', (event) => {
+  console.log('user clicked previous');
+})
+
+searchResultsNextPage.addEventListener('click', (event) => {
+  console.log('user clicked next');
+})
+
+// event listener for click in the results list
+searchResultsListing.addEventListener('click', (event) => {
+  // user clicked somewhere in the list, we need to find the element they clicked on
+  console.log(event.target.id);
+  // show the player
+  musicPlayerSection.classList.remove('hidden');
+  // set the src of the audio tag to the preview audio url
+  updateAudioPlayerWithTrack(event.target.id);
+  updateAlbumArtwork(event.target.id)
+})
+
+// END EVENT LISTENERS
+
 // temp function for building the list of results
-function displayResults(dataResults, numberPerPage) {
+function displayResults(dataResults, lowIndex, highIndex) {
+  // clear the div of results (so a previous search results disappear)
+  searchResultsListing.innerHTML = '';
+
   let ulForResults = document.createElement('ul');
   ulForResults.className = 'list_group';
 
-  for(let i=0; i<numberPerPage; i++) {
+  for(let i=lowIndex; i<highIndex; i++) {
     let liResult = document.createElement('li');
     liResult.className = 'list-group-item';
     liResult.id = i;
@@ -82,14 +108,3 @@ function updateAudioPlayerWithTrack(indexIntoSearchResults) {
 function updateAlbumArtwork(indexIntoSearchResults) {
   albumArtwork.src = searchResults[indexIntoSearchResults].artworkUrl100;
 }
-
-// event listener for click in the results list
-searchResultsListing.addEventListener('click', (event) => {
-  // user clicked somewhere in the list, we need to find the element they clicked on
-  console.log(event.target.id);
-  // show the player
-  musicPlayerSection.classList.remove('hidden');
-  // set the src of the audio tag to the preview audio url
-  updateAudioPlayerWithTrack(event.target.id);
-  updateAlbumArtwork(event.target.id)
-})
