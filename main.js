@@ -10,6 +10,12 @@
 
 let url = 'https://itunes.apple.com/search?term=';
 
+// everytime we do a search, put the JSON data here.
+// index into the list is the id associated with each li in the list.
+let searchResults = [];
+// whatever track is currently playing, store the JSON here.
+let currentTrack = {};
+
 // Search field and the button
 let searchTermInput = document.querySelector('#search-term-input');
 let searchButton = document.querySelector('#search-button');
@@ -20,6 +26,7 @@ let searchResultsDiv = document.querySelector('.results');
 // Music player
 let musicPlayerSection = document.querySelector('.player');
 let musicPlayer = document.querySelector('.music-player');
+let albumArtwork = document.querySelector('.album-artwork');
 
 searchButton.addEventListener('click', (event) => {
   // prevent the default
@@ -40,6 +47,7 @@ searchButton.addEventListener('click', (event) => {
   })
   .then( (data) => {
     console.log(data);
+    searchResults = data.results;
     displayResults(data.results);
   })
 });
@@ -49,10 +57,10 @@ function displayResults(dataResults) {
   let ulForResults = document.createElement('ul');
   ulForResults.className = 'list_group';
 
-  dataResults.forEach( (result) => {
+  dataResults.forEach( (result, index) => {
     let liResult = document.createElement('li');
     liResult.className = 'list-group-item';
-    liResult.id = result.previewUrl;
+    liResult.id = index;
     let liResultText = document.createTextNode(result.trackName);
     liResult.appendChild(liResultText);
     ulForResults.appendChild(liResult);
@@ -63,8 +71,12 @@ function displayResults(dataResults) {
 }
 
 // when we've got a url for the track, update the audio player
-function updateAudioPlayerWithTrack(trackURL) {
-  musicPlayer.src = trackURL;
+function updateAudioPlayerWithTrack(indexIntoSearchResults) {
+  musicPlayer.src = searchResults[indexIntoSearchResults].previewUrl;
+}
+
+function updateAlbumArtwork(indexIntoSearchResults) {
+  albumArtwork.src = searchResults[indexIntoSearchResults].artworkUrl100;
 }
 
 // event listener for click in the results list
@@ -75,4 +87,5 @@ searchResultsDiv.addEventListener('click', (event) => {
   musicPlayerSection.classList.remove('hidden');
   // set the src of the audio tag to the preview audio url
   updateAudioPlayerWithTrack(event.target.id);
+  updateAlbumArtwork(event.target.id)
 })
