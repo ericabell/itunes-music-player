@@ -8,6 +8,7 @@
 // 4. Create a way to append the fetch results to your page
 // 5. Create a way to listen for a click that will play the song in the audio play
 
+let url = 'https://itunes.apple.com/search?term=';
 
 // Search field and the button
 let searchTermInput = document.querySelector('#search-term-input');
@@ -19,5 +20,9 @@ searchButton.addEventListener('click', (event) => {
 
   // grab the text
   let searchString = searchTermInput.value;
-  console.log(searchString);
+  console.log(`Searched for: ${searchString}`);
+
+  // construct the API call to get search results
+  let apiURLSearchString = url + encodeURIComponent(searchString);
+  console.log(apiURLSearchString);
 });
