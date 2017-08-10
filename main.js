@@ -13,6 +13,8 @@ let url = 'https://itunes.apple.com/search?term=';
 // everytime we do a search, put the JSON data here.
 // index into the list is the id associated with each li in the list.
 let searchResults = [];
+let searchResultsIndexLow = 0;
+let searchResultsIndexHigh = 5;
 // whatever track is currently playing, store the JSON here.
 let currentTrack = {};
 
@@ -54,16 +56,26 @@ searchButton.addEventListener('click', (event) => {
   .then( (data) => {
     console.log(data);
     searchResults = data.results;
-    displayResults(data.results, 0, 5);
+    displayResults();
   })
 });
 
 searchResultsPreviousPage.addEventListener('click', (event) => {
   console.log('user clicked previous');
+  // can we subtract 5 from searchResultsIndexLow and be greater than 0
+  if( searchResultsIndexLow-5 >= 0 ) {
+    searchResultsIndexLow -=5;
+    searchResultsIndexHigh -=5;
+  }
+  displayResults();
 })
 
 searchResultsNextPage.addEventListener('click', (event) => {
-  console.log('user clicked next');
+  if( searchResultsIndexHigh+5 < searchResults.length ) {
+    searchResultsIndexLow +=5;
+    searchResultsIndexHigh +=5;
+  }
+  displayResults();
 })
 
 // event listener for click in the results list
@@ -80,18 +92,18 @@ searchResultsListing.addEventListener('click', (event) => {
 // END EVENT LISTENERS
 
 // temp function for building the list of results
-function displayResults(dataResults, lowIndex, highIndex) {
+function displayResults() {
   // clear the div of results (so a previous search results disappear)
   searchResultsListing.innerHTML = '';
 
   let ulForResults = document.createElement('ul');
   ulForResults.className = 'list_group';
 
-  for(let i=lowIndex; i<highIndex; i++) {
+  for(let i=searchResultsIndexLow; i<searchResultsIndexHigh; i++) {
     let liResult = document.createElement('li');
     liResult.className = 'list-group-item';
     liResult.id = i;
-    let liResultText = document.createTextNode(dataResults[i].trackName);
+    let liResultText = document.createTextNode(searchResults[i].trackName);
     liResult.appendChild(liResultText);
     ulForResults.appendChild(liResult);
   }
