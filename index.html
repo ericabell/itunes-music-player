@@ -22,8 +22,13 @@
       <audio class="music-player" controls="controls" src=""></audio>
     </section>
     <section class="search">
-      <form class="search-form">
+      <form class="form-inline">
+        <div class="form-group">
+          <label for="search-term-input">Artist</label>
+          <input type="text" class="form-control" id="search-term-input" placeholder="AC/DC">
 
+          <button type="submit" class="btn btn-default">Search</button>
+        </div>
       </form>
     </section>
     <section class="results"></section>
