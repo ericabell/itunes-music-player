@@ -52,23 +52,23 @@ searchButton.addEventListener('click', (event) => {
   .then( (data) => {
     console.log(data);
     searchResults = data.results;
-    displayResults(data.results);
+    displayResults(data.results, 5);
   })
 });
 
 // temp function for building the list of results
-function displayResults(dataResults) {
+function displayResults(dataResults, numberPerPage) {
   let ulForResults = document.createElement('ul');
   ulForResults.className = 'list_group';
 
-  dataResults.forEach( (result, index) => {
+  for(let i=0; i<numberPerPage; i++) {
     let liResult = document.createElement('li');
     liResult.className = 'list-group-item';
-    liResult.id = index;
-    let liResultText = document.createTextNode(result.trackName);
+    liResult.id = i;
+    let liResultText = document.createTextNode(dataResults[i].trackName);
     liResult.appendChild(liResultText);
     ulForResults.appendChild(liResult);
-  });
+  }
 
   // append the ul to its parent
   searchResultsListing.appendChild(ulForResults);
