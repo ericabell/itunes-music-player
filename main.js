@@ -14,6 +14,9 @@ let url = 'https://itunes.apple.com/search?term=';
 let searchTermInput = document.querySelector('#search-term-input');
 let searchButton = document.querySelector('#search-button');
 
+// Results div
+let searchResultsDiv = document.querySelector('.results');
+
 searchButton.addEventListener('click', (event) => {
   // prevent the default
   event.preventDefault();
@@ -33,5 +36,23 @@ searchButton.addEventListener('click', (event) => {
   })
   .then( (data) => {
     console.log(data);
+    displayResults(data.results);
   })
 });
+
+// temp function for building the list of results
+function displayResults(dataResults) {
+  let ulForResults = document.createElement('ul');
+  ulForResults.className = 'list_group';
+  
+  dataResults.forEach( (result) => {
+    let liResult = document.createElement('li');
+    liResult.className = 'list-group-item';
+    let liResultText = document.createTextNode(result.trackName);
+    liResult.appendChild(liResultText);
+    ulForResults.appendChild(liResult);
+  });
+
+  // append the ul to its parent
+  searchResultsDiv.appendChild(ulForResults);
+}
