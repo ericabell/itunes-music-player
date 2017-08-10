@@ -7,3 +7,17 @@
 // 3. Create your `fetch` request that is called after a submission
 // 4. Create a way to append the fetch results to your page
 // 5. Create a way to listen for a click that will play the song in the audio play
+
+
+// Search field and the button
+let searchTermInput = document.querySelector('#search-term-input');
+let searchButton = document.querySelector('#search-button');
+
+searchButton.addEventListener('click', (event) => {
+  // prevent the default
+  event.preventDefault();
+
+  // grab the text
+  let searchString = searchTermInput.value;
+  console.log(searchString);
+});
