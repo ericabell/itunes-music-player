@@ -32,6 +32,9 @@ searchButton.addEventListener('click', (event) => {
   // prevent the default
   event.preventDefault();
 
+  // clear the div of results (so a previous search results disappear)
+  searchResultsDiv.innerHTML = '';
+
   // grab the text
   let searchString = searchTermInput.value;
   console.log(`Searched for: ${searchString}`);
