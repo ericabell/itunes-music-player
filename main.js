@@ -17,6 +17,9 @@ let searchButton = document.querySelector('#search-button');
 // Results div
 let searchResultsDiv = document.querySelector('.results');
 
+// Music player
+let musicPlayer = document.querySelector('.music-player');
+
 searchButton.addEventListener('click', (event) => {
   // prevent the default
   event.preventDefault();
@@ -57,3 +60,11 @@ function displayResults(dataResults) {
   // append the ul to its parent
   searchResultsDiv.appendChild(ulForResults);
 }
+
+// event listener for click in the results list
+searchResultsDiv.addEventListener('click', (event) => {
+  // user clicked somewhere in the list, we need to find the element they clicked on
+  console.log(event.target.id);
+  // set the src of the audio tag to the preview audio url
+  musicPlayer.src = event.target.id;
+})
