@@ -3,7 +3,10 @@ body {
 }
 
 header {
-  margin: 0 auto;
+  margin-top: 0px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 20px;
   padding: 20px;
   background-color: #d6abc0;
 }
