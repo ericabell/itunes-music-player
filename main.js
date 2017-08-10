@@ -22,6 +22,7 @@ let searchButton = document.querySelector('#search-button');
 
 // Results div
 let searchResultsDiv = document.querySelector('.results');
+let searchResultsListing = document.querySelector('.results-listing');
 
 // Music player
 let musicPlayerSection = document.querySelector('.player');
@@ -33,7 +34,7 @@ searchButton.addEventListener('click', (event) => {
   event.preventDefault();
 
   // clear the div of results (so a previous search results disappear)
-  searchResultsDiv.innerHTML = '';
+  searchResultsListing.innerHTML = '';
 
   // grab the text
   let searchString = searchTermInput.value;
@@ -70,7 +71,7 @@ function displayResults(dataResults) {
   });
 
   // append the ul to its parent
-  searchResultsDiv.appendChild(ulForResults);
+  searchResultsListing.appendChild(ulForResults);
 }
 
 // when we've got a url for the track, update the audio player
@@ -83,7 +84,7 @@ function updateAlbumArtwork(indexIntoSearchResults) {
 }
 
 // event listener for click in the results list
-searchResultsDiv.addEventListener('click', (event) => {
+searchResultsListing.addEventListener('click', (event) => {
   // user clicked somewhere in the list, we need to find the element they clicked on
   console.log(event.target.id);
   // show the player
