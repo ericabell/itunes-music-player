@@ -25,4 +25,13 @@ searchButton.addEventListener('click', (event) => {
   // construct the API call to get search results
   let apiURLSearchString = url + encodeURIComponent(searchString);
   console.log(apiURLSearchString);
+
+  // use fetch to send the request
+  fetch(apiURLSearchString)
+  .then( (response) => {
+    return( response.json() )
+  })
+  .then( (data) => {
+    console.log(data);
+  })
 });
