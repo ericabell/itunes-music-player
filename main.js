@@ -44,10 +44,11 @@ searchButton.addEventListener('click', (event) => {
 function displayResults(dataResults) {
   let ulForResults = document.createElement('ul');
   ulForResults.className = 'list_group';
-  
+
   dataResults.forEach( (result) => {
     let liResult = document.createElement('li');
     liResult.className = 'list-group-item';
+    liResult.id = result.previewUrl;
     let liResultText = document.createTextNode(result.trackName);
     liResult.appendChild(liResultText);
     ulForResults.appendChild(liResult);
