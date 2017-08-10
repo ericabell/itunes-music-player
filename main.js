@@ -61,10 +61,15 @@ function displayResults(dataResults) {
   searchResultsDiv.appendChild(ulForResults);
 }
 
+// when we've got a url for the track, update the audio player
+function updateAudioPlayerWithTrack(trackURL) {
+  musicPlayer.src = trackURL;
+}
+
 // event listener for click in the results list
 searchResultsDiv.addEventListener('click', (event) => {
   // user clicked somewhere in the list, we need to find the element they clicked on
   console.log(event.target.id);
   // set the src of the audio tag to the preview audio url
-  musicPlayer.src = event.target.id;
+  updateAudioPlayerWithTrack(event.target.id);
 })
