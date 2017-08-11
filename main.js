@@ -8,7 +8,7 @@
 // 4. Create a way to append the fetch results to your page
 // 5. Create a way to listen for a click that will play the song in the audio play
 
-let url = 'https://itunes.apple.com/search?term=';
+let url = 'https://itunes.apple.com/search?media=music&term=';
 
 // everytime we do a search, put the JSON data here.
 // index into the list is the id associated with each li in the list.
@@ -81,7 +81,8 @@ searchResultsNextPage.addEventListener('click', (event) => {
 // event listener for click in the results list
 searchResultsListing.addEventListener('click', (event) => {
   // user clicked somewhere in the list, we need to find the element they clicked on
-  console.log(event.target.id);
+  console.log(event);
+  console.log(`Target id: ${event.path[0].id}`);
   // show the player
   musicPlayerSection.classList.remove('hidden');
   // set the src of the audio tag to the preview audio url
@@ -100,12 +101,23 @@ function displayResults() {
   ulForResults.className = 'list_group';
 
   for(let i=searchResultsIndexLow; i<searchResultsIndexHigh; i++) {
-    let liResult = document.createElement('li');
-    liResult.className = 'list-group-item';
-    liResult.id = i;
-    let liResultText = document.createTextNode(searchResults[i].trackName);
-    liResult.appendChild(liResultText);
-    ulForResults.appendChild(liResult);
+    let liResult = `
+      <li class="list-group-item" id=${i}>
+        <div id=${i}>
+          ${searchResults[i].trackName}
+        </div>
+        <div id=${i}>
+          ${convertMillisecondsToMinutesAndSeconds(searchResults[i].trackTimeMillis)}
+        </div>
+      </li>
+    `
+    ulForResults.innerHTML += liResult;
+    // let liResult = document.createElement('li');
+    // liResult.className = 'list-group-item';
+    // liResult.id = i;
+    // let liResultText = document.createTextNode(searchResults[i].trackName);
+    // liResult.appendChild(liResultText);
+    // ulForResults.appendChild(liResult);
   }
 
   // append the ul to its parent
@@ -119,4 +131,19 @@ function updateAudioPlayerWithTrack(indexIntoSearchResults) {
 
 function updateAlbumArtwork(indexIntoSearchResults) {
   albumArtwork.src = searchResults[indexIntoSearchResults].artworkUrl100;
+}
+
+// UTILITY FUNCTIONS
+function pad(n, width, z) {
+  z = z || '0';
+  n = n + '';
+  return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
+}
+
+function convertMillisecondsToMinutesAndSeconds(milliSec) {
+  let totalSeconds = Math.floor(milliSec/1000);
+  let minutes = Math.floor(totalSeconds/60);
+  let seconds = pad(totalSeconds - minutes*60, 2);
+
+  return `${minutes}:${seconds}`;
 }
