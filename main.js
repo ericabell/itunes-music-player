@@ -42,22 +42,28 @@ searchButton.addEventListener('click', (event) => {
 
   // grab the text
   let searchString = searchTermInput.value;
-  console.log(`Searched for: ${searchString}`);
+  // the user needed to at least input something...
+  if(searchString != '') {
+    console.log(`Searched for: ${searchString}`);
 
-  // construct the API call to get search results
-  let apiURLSearchString = url + encodeURIComponent(searchString);
-  console.log(apiURLSearchString);
+    // construct the API call to get search results
+    let apiURLSearchString = url + encodeURIComponent(searchString);
+    console.log(apiURLSearchString);
 
-  // use fetch to send the request
-  fetch(apiURLSearchString)
-  .then( (response) => {
-    return( response.json() )
-  })
-  .then( (data) => {
-    console.log(data);
-    searchResults = data.results;
-    displayResults();
-  })
+    // use fetch to send the request
+    fetch(apiURLSearchString)
+    .then( (response) => {
+      return( response.json() )
+    })
+    .then( (data) => {
+      console.log(data);
+      searchResults = data.results;
+      displayResults();
+    })
+  } else {  // user left search blank
+    let searchAlert = document.querySelector('.search-left-blank');
+    searchAlert.classList.remove('hidden');
+  }
 });
 
 searchResultsPreviousPage.addEventListener('click', (event) => {
