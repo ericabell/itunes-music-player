@@ -35,6 +35,18 @@ let musicPlayerSection = document.querySelector('.player');
 let musicPlayer = document.querySelector('.music-player');
 let albumArtwork = document.querySelector('.album-artwork');
 
+// Error popup for search string left blank
+let searchStringLeftBlankAlert = `
+  <div class="alert alert-danger alert-dismissible fade show hidden search-left-blank" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <strong>Oh snap!</strong> Search string left blank.
+  </div>
+`
+
+
+
 // EVENT LISTENERS FOR BUTTONS ON OUR PAGE
 searchButton.addEventListener('click', (event) => {
   // prevent the default
