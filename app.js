@@ -1,9 +1,11 @@
 const express = require('express');
+const request = require('request');
 
 let app = express();
 
 app.get('/', (req,res) => {
-  res.send('Hello World.')
+  
+  res.send('Spotify Authentication Flow');
 })
 
 app.listen(3000, () => {
