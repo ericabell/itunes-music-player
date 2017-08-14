@@ -115,31 +115,38 @@ function displayResults() {
   // clear the div of results (so a previous search results disappear)
   searchResultsListing.innerHTML = '';
 
-  let ulForResults = document.createElement('ul');
-  ulForResults.className = 'list_group';
 
-  for(let i=searchResultsIndexLow; i<searchResultsIndexHigh; i++) {
-    let liResult = `
-      <li class="list-group-item" id=${i}>
-        <div id=${i}>
-          ${searchResults[i].trackName}
-        </div>
-        <div id=${i}>
-          ${convertMillisecondsToMinutesAndSeconds(searchResults[i].trackTimeMillis)}
-        </div>
-      </li>
+
+  // loop through some of the results, and build up the cards
+  for( let i=searchResultsIndexLow; i<searchResultsIndexHigh; i++ ) {
+    let cardHTML = `
+      <div class="card" style="width: 20rem;">
+        <img class="" src="" alt="">
+          <div class="card-block">
+            <h4 class="card-title">${searchResults[i].trackName}</h4>
+            <p class="card_text">Some quick example text</p>
+          </div>
+      </div>
     `
-    ulForResults.innerHTML += liResult;
-    // let liResult = document.createElement('li');
-    // liResult.className = 'list-group-item';
-    // liResult.id = i;
-    // let liResultText = document.createTextNode(searchResults[i].trackName);
-    // liResult.appendChild(liResultText);
-    // ulForResults.appendChild(liResult);
+    searchResultsListing.innerHTML += cardHTML;
   }
 
+  // for(let i=searchResultsIndexLow; i<searchResultsIndexHigh; i++) {
+  //   let liResult = `
+  //     <li class="list-group-item" id=${i}>
+  //       <div id=${i}>
+  //         ${searchResults[i].trackName}
+  //       </div>
+  //       <div id=${i}>
+  //         ${convertMillisecondsToMinutesAndSeconds(searchResults[i].trackTimeMillis)}
+  //       </div>
+  //     </li>
+  //   `
+  //   ulForResults.innerHTML += liResult;
+  // }
+
   // append the ul to its parent
-  searchResultsListing.appendChild(ulForResults);
+
 }
 
 // when we've got a url for the track, update the audio player
