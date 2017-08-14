@@ -1,0 +1,26 @@
+
+1. Request made:
+https://accounts.spotify.com/authorize?client_id=   &response_type=token&redirect_uri=http://localhost/login&show_dialog=true
+
+2. This comes back:
+http://localhost/login#access_token=BQCarRS-xwoYxKS-N0xUPf7wvLMhlU50SV5GJuun91TAjlsEOoG09xhQW1oKj5MdWTgaV2at5jiWocOw3x_s0bj7ki3_2t1E8imh98ffQXcLI51lfFXZ22g17f7LdZhOFy1XdhswEdWMrb70QUkNSG1Wi76-ZpWO&token_type=Bearer&expires_in=3600
+
+which gives us a token
+
+3. Now we can get some data using the token in our request header using:
+GET /v1/me/playlists HTTP/1.1
+Host: api.spotify.com
+Authorization: Bearer BQCarRS-xwoYxKS-N0xUPf7wvLMhlU50SV5GJuun91TAjlsEOoG09xhQW1oKj5MdWTgaV2at5jiWocOw3x_s0bj7ki3_2t1E8imh98ffQXcLI51lfFXZ22g17f7LdZhOFy1XdhswEdWMrb70QUkNSG1Wi76-ZpWO
+Cache-Control: no-cache
+Postman-Token: e81189e1-ed7d-e017-fbfa-f21c8ed82e7a
+
+To search for an artist:
+https://api.spotify.com/v1/search?q=ozzy&type=artist
+
+valid search types are album, artist, playlist, and track
+
+http://localhost/login
+
+BQDr1pISk7shATX2zMkEhZgc6iNY9XA3aw11pA3VjgniM1yr7wRuNHzpbdkcIfY4_ZkH7XvxMPZYsabgxEWJNf4yr_5CQEYOA3TucbUVDHQSPYV9T56nMXHAn8uPQXbqAg3R_-pA5xuiBke7
+
+{ "error": { "status": 401, "message": "The access token expired" } }
