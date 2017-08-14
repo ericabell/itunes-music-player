@@ -1,0 +1,22 @@
+{
+  "name": "itunes-music-player",
+  "version": "1.0.0",
+  "description": "Completed in 67 minutes with 11 commits",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ericabell/itunes-music-player.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ericabell/itunes-music-player/issues"
+  },
+  "homepage": "https://github.com/ericabell/itunes-music-player#readme",
+  "dependencies": {
+    "request": "^2.81.0"
+  }
+}
