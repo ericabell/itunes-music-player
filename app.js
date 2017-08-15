@@ -5,11 +5,21 @@ let app = express();
 app.use(express.static('public'));
 
 app.get('/', (req,res) => {
+  res.sendFile('index.html', options, (err) => {
+    if(err) {
+      next(err);
+    } else {
+      console.log('Sent: ', 'index.html');
+    }
+  })
+});
+
+app.get('/spotify-authenticate', (req,res) => {
   let spotifyClientID = process.env['SPOTIFY_CLIENT'];
   let url = 'https://accounts.spotify.com/authorize?client_id=' + spotifyClientID + '&response_type=token&redirect_uri=http://localhost:3000/login&show_dialog=true'
 
   res.redirect(301, url);
-});
+})
 
 app.get('/login', (req,res) => {
   let options = {
