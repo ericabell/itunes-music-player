@@ -1,6 +1,4 @@
 const express = require('express');
-const request = require('request');
-const url = require('url');
 
 let app = express();
 
