@@ -18,4 +18,6 @@ fetch(getUserBasicURL, {
   return( response.json() );
 }).then( (data) => {
   console.log(data);
+  let welcomeP = document.querySelector('#welcome');
+  welcomeP.innerHTML = `Welcome, ${data.id}. So glad you are here.`;
 });
