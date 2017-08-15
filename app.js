@@ -4,6 +4,8 @@ const url = require('url');
 
 let app = express();
 
+app.use(express.static('public'));
+
 app.get('/', (req,res) => {
   let spotifyClientID = process.env['SPOTIFY_CLIENT'];
   let url = 'https://accounts.spotify.com/authorize?client_id=' + spotifyClientID + '&response_type=token&redirect_uri=http://localhost:3000/login&show_dialog=true'
@@ -12,11 +14,21 @@ app.get('/', (req,res) => {
 });
 
 app.get('/login', (req,res) => {
-  // we should be able to grab the auth token from the url
-  let url_parts = url.parse(req.url, true);
-  console.log(url_parts);
-
-  res.sendStatus(200);
+  let options = {
+    root: __dirname + '/public/',
+    dotfiles: 'deny',
+    headers: {
+      'x-timestamp': Date.now(),
+      'x-sent': true
+    }
+  }
+  res.sendFile('login.html', options, (err) => {
+    if(err) {
+      next(err);
+    } else {
+      console.log('Sent: ', 'login.html');
+    }
+  });
 })
 
 app.listen(3000, () => {
