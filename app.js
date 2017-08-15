@@ -5,9 +5,10 @@ let app = express();
 app.use(express.static('public'));
 
 app.get('/', (req,res) => {
+  console.log('Root hit');
   res.sendFile('index.html', options, (err) => {
     if(err) {
-      next(err);
+      console.log('Error: ' + err);
     } else {
       console.log('Sent: ', 'index.html');
     }
@@ -22,6 +23,7 @@ app.get('/spotify-authenticate', (req,res) => {
 })
 
 app.get('/login', (req,res) => {
+  console.log('login hit');
   let options = {
     root: __dirname + '/public/',
     dotfiles: 'deny',
