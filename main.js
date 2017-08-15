@@ -8,6 +8,35 @@
 // 4. Create a way to append the fetch results to your page
 // 5. Create a way to listen for a click that will play the song in the audio play
 
+// check to see if the user has been autheticated
+// we should have access to the hash
+// which contains the auth token
+
+console.log(window.location.hash);
+
+let accessToken = window.location.hash.substr(1).split('&')[0].split('=')[1];
+
+// assemble a request using fetch
+
+if(accessToken != '') {
+  console.log('We have a token!')
+  let getUserBasicURL = 'https://api.spotify.com/v1/me/';
+
+  fetch(getUserBasicURL, {
+    method: 'get',
+    headers: {
+      'Authorization': 'Bearer ' + accessToken
+    }
+  }).then( (response) => {
+    return( response.json() );
+  }).then( (data) => {
+    console.log(data);
+    let welcomeP = document.querySelector('#welcome');
+    welcomeP.innerHTML = `Welcome, ${data.id}. So glad you are here.`;
+  });
+}
+
+
 let url = 'https://itunes.apple.com/search?media=music&term=';
 
 // everytime we do a search, put the JSON data here.

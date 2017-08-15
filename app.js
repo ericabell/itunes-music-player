@@ -40,11 +40,11 @@ app.get('/login', (req,res) => {
       'x-sent': true
     }
   }
-  res.sendFile('login.html', options, (err) => {
+  res.sendFile('index.html', options, (err) => {
     if(err) {
       next(err);
     } else {
-      console.log('Sent: ', 'login.html');
+      console.log('Sent: ', 'index.html');
     }
   });
 })
