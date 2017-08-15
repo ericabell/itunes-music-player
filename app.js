@@ -4,6 +4,14 @@ let app = express();
 
 app.use(express.static('public'));
 
+app.use(function(req, res, next) {
+  res.setHeader('charset', 'utf-8');
+  res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+  res.setHeader('Pragma', 'no-cache');
+  res.setHeader('Expires', '0');
+  next();
+});
+
 app.get('/', (req,res) => {
   console.log('Root hit');
   res.sendFile('index.html', options, (err) => {
