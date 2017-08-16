@@ -217,11 +217,19 @@ function displayResults() {
 
 // when we've got a url for the track, update the audio player
 function updateAudioPlayerWithTrack(indexIntoSearchResults) {
-  musicPlayer.src = searchResults[indexIntoSearchResults].previewUrl;
+  if(accessToken) {
+    musicPlayer.src = searchResults.tracks.items[indexIntoSearchResults].preview_url;
+  } else {
+    musicPlayer.src = searchResults[indexIntoSearchResults].previewUrl;
+  }
 }
 
 function updateAlbumArtwork(indexIntoSearchResults) {
-  albumArtwork.src = searchResults[indexIntoSearchResults].artworkUrl100;
+  if(accessToken) {
+    albumArtwork.src = searchResults.tracks.items[indexIntoSearchResults].album.images[0].url;
+  } else {
+    albumArtwork.src = searchResults[indexIntoSearchResults].artworkUrl100;
+  }
 }
 
 // UTILITY FUNCTIONS
