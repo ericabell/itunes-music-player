@@ -91,16 +91,31 @@ searchButton.addEventListener('click', (event) => {
     let apiURLSearchString = url + encodeURIComponent(searchString);
     console.log(apiURLSearchString);
 
-    // use fetch to send the request
-    fetch(apiURLSearchString)
-    .then( (response) => {
-      return( response.json() )
-    })
-    .then( (data) => {
-      console.log(data);
-      searchResults = data.results;
-      displayResults();
-    })
+    if(!accessToken) {
+      // use fetch to send the request
+      fetch(apiURLSearchString)
+      .then( (response) => {
+        return( response.json() )
+      })
+      .then( (data) => {
+        console.log(data);
+        searchResults = data.results;
+        displayResults();
+      })
+    } else {
+      // send our request to spotify
+      fetch('https://api.spotify.com/v1/search?type=album,artist,track&q=' + encodeURIComponent(searchString),
+            { method: 'GET',
+              headers: {'Authorization': 'Bearer ' + accessToken}
+            })
+        .then( (response) => {
+          return response.json();
+        })
+        .then( (data) => {
+          console.log(data);
+        })
+    }
+
   } else {  // user left search blank
     let searchAlert = document.querySelector('.search-left-blank');
     searchAlert.classList.remove('hidden');
