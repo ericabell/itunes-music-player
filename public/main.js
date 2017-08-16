@@ -114,7 +114,7 @@ searchButton.addEventListener('click', (event) => {
         .then( (data) => {
           console.log(data);
           searchResults = data; // albums, artists, and tracks
-          displaySpotifyResults();
+          displayResults();
         })
     }
 
@@ -125,9 +125,12 @@ searchButton.addEventListener('click', (event) => {
 });
 
 searchResultsPreviousPage.addEventListener('click', (event) => {
-  console.log('user clicked previous');
   // can we subtract 5 from searchResultsIndexLow and be greater than 0
   if( searchResultsIndexLow-5 >= 0 ) {
+    searchResultsIndexLow -=5;
+    searchResultsIndexHigh -=5;
+  }
+  if( accessToken && searchResultsIndexLow-5 >= 0 ) {
     searchResultsIndexLow -=5;
     searchResultsIndexHigh -=5;
   }
@@ -136,6 +139,10 @@ searchResultsPreviousPage.addEventListener('click', (event) => {
 
 searchResultsNextPage.addEventListener('click', (event) => {
   if( searchResultsIndexHigh+5 < searchResults.length ) {
+    searchResultsIndexLow +=5;
+    searchResultsIndexHigh +=5;
+  }
+  if( accessToken && searchResultsIndexHigh+5 < searchResults.tracks.items.length ) {
     searchResultsIndexLow +=5;
     searchResultsIndexHigh +=5;
   }
@@ -165,17 +172,37 @@ function displayResults() {
   ulForResults.className = 'list_group';
 
   for(let i=searchResultsIndexLow; i<searchResultsIndexHigh; i++) {
-    let liResult = `
-      <li class="list-group-item" id=${i}>
-        <div id=${i}>
-          ${searchResults[i].trackName}
-        </div>
-        <div id=${i}>
-          ${convertMillisecondsToMinutesAndSeconds(searchResults[i].trackTimeMillis)}
-        </div>
-      </li>
-    `
-    ulForResults.innerHTML += liResult;
+    if(!accessToken) {
+      console.log('iTunes search results');
+      console.log(i);
+      let liResult = `
+        <li class="list-group-item" id=${i}>
+          <div id=${i}>
+            ${searchResults[i].trackName}
+          </div>
+          <div id=${i}>
+            ${convertMillisecondsToMinutesAndSeconds(searchResults[i].trackTimeMillis)}
+          </div>
+        </li>
+      `
+      ulForResults.innerHTML += liResult;
+    }
+    else {
+      console.log('spotify search results');
+      console.log(i);
+      let liResult = `
+        <li class="list-group-item" id=${i}>
+          <div id=${i}>
+            ${searchResults.tracks.items[i].name}
+          </div>
+          <div id=${i}>
+            ${convertMillisecondsToMinutesAndSeconds(searchResults.tracks.items[i].duration_ms)}
+          </div>
+        </li>
+      `
+      ulForResults.innerHTML += liResult;
+    }
+
     // let liResult = document.createElement('li');
     // liResult.className = 'list-group-item';
     // liResult.id = i;
@@ -185,28 +212,6 @@ function displayResults() {
   }
 
   // append the ul to its parent
-  searchResultsListing.appendChild(ulForResults);
-}
-
-function displaySpotifyResults() {
-  searchResultsListing.innerHTML = '';
-
-  let ulForResults = document.createElement('ul');
-  ulForResults.className = "list_group";
-
-  for(let i=searchResultsIndexLow; i<searchResultsIndexHigh; i++) {
-    let liResult = `
-      <li class="list-group-item" id=${i}>
-        <div id=${i}>
-          ${searchResults.tracks.items[i].name}
-        </div>
-        <div id=${i}>
-          ${convertMillisecondsToMinutesAndSeconds(searchResults.tracks.items[i].duration_ms)}
-        </div>
-      </li>
-    `
-    ulForResults.innerHTML += liResult;
-  }
   searchResultsListing.appendChild(ulForResults);
 }
 
