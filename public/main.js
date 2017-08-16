@@ -18,7 +18,7 @@ let accessToken = window.location.hash.substr(1).split('&')[0].split('=')[1];
 
 // assemble a request using fetch
 
-if(accessToken != '') {
+if(accessToken) {
   console.log('We have a token!')
   let getUserBasicURL = 'https://api.spotify.com/v1/me/';
 
