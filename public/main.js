@@ -113,6 +113,8 @@ searchButton.addEventListener('click', (event) => {
         })
         .then( (data) => {
           console.log(data);
+          searchResults = data; // albums, artists, and tracks
+          displaySpotifyResults();
         })
     }
 
@@ -183,6 +185,28 @@ function displayResults() {
   }
 
   // append the ul to its parent
+  searchResultsListing.appendChild(ulForResults);
+}
+
+function displaySpotifyResults() {
+  searchResultsListing.innerHTML = '';
+
+  let ulForResults = document.createElement('ul');
+  ulForResults.className = "list_group";
+
+  for(let i=searchResultsIndexLow; i<searchResultsIndexHigh; i++) {
+    let liResult = `
+      <li class="list-group-item" id=${i}>
+        <div id=${i}>
+          ${searchResults.tracks.items[i].name}
+        </div>
+        <div id=${i}>
+          ${convertMillisecondsToMinutesAndSeconds(searchResults.tracks.items[i].duration_ms)}
+        </div>
+      </li>
+    `
+    ulForResults.innerHTML += liResult;
+  }
   searchResultsListing.appendChild(ulForResults);
 }
 
