@@ -1,5 +1,13 @@
 # Really Awesome Music player
 
+I have implemented both the plain iTunes API version of this project as well
+as a version that allows the user to auth with Spotify to give access to
+better album artwork, etc.
+
+I have two branches to access these versions, as explained below.
+
+I have also managed the project in waffle.io, link below.
+
 Branches:
 =========
 master: the plain vanilla version of the project with a static index.html
