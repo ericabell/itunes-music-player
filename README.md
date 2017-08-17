@@ -3,6 +3,7 @@
 Branches:
 =========
 master: the plain vanilla version of the project with a static index.html
+
 add-express-server: uses express and gives the user an option to auth with Spotify
 
 Completed in 67 minutes with 11 commits
