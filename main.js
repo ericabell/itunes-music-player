@@ -48,7 +48,8 @@ let searchStringLeftBlankAlert = `
 
 
 // EVENT LISTENERS FOR BUTTONS ON OUR PAGE
-searchButton.addEventListener('click', (event) => {
+document.getElementById('form1').addEventListener('submit', (event) => {
+// searchButton.addEventListener('click', (event) => {
   // prevent the default
   event.preventDefault();
 
